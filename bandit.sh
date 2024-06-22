@@ -39,7 +39,7 @@ function storePass(){
 # Gestiona la conexion a bandit
 function connectLevel(){
   level=$1 
-  checker=$(cat .bandit_pass | grep "bandit$level")
+  checker=$(cat .bandit_pass 2>/dev/null | grep "bandit$level")
   if [ -f .bandit_pass ] && [ "$checker" ]; then
     echo -e "\n${yellowColour}[+]${endColour}${greenColour} Se procedera a conectarse al nivel de bandit$level...${endColour}"
     pass_to_connect="$(cat .bandit_pass | grep bandit$level | awk 'NF{print $NF}')"
@@ -92,7 +92,7 @@ function addLevel(){
 # Eliminar nivel
 function deleteLevel(){
   level=$1
-  checker=$(cat .bandit_pass | grep "bandit$level")
+  checker=$(cat .bandit_pass 2>/dev/null | grep "bandit$level")
   if [ -f .bandit_pass ] && [ "$checker" ]; then
     cat .bandit_pass | grep -v "bandit$level" | sort | sponge .bandit_pass
     echo -e "\n${redColour}[-]${endColour}${grayColour} Se ha eliminado el nivel de bandit$level exitosamente.${endColour}\n"
