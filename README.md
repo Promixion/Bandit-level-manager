@@ -1,40 +1,38 @@
-        exit 1
-      fi
-    else
-      echo -e "\n${redColour}[!] No hay una password disponible para ese nivel.${endColour}\n"
-      helpPanel
-    fi
-  else
-    touch .bandit_pass
-    echo "bandit0: bandit0" > .bandit_pass
-    connectLevel $level
-  fi
+## Bandit Automation Script
 
-}
+### Descripción
 
-# Lista niveles
-function listLevels(){
-  if [ -f .bandit_pass ]; then
-    cat .bandit_pass | sort | while read line; do echo -e "${greenColour}$(echo $line | awk '{print $1}')${endColour}${purpleColour} $(echo $line | awk '{print $2}')${endColour}" ; done
-  else
-    echo -e "\n${redColour}[!] No hay claves de niveles para mostrar${endColour}"
-  fi
-}
+Este script de Bash automatiza la interacción con el juego Bandit de OverTheWire mediante la gestión de conexiones SSH y el almacenamiento de contraseñas de nivel. Bandit es un juego de seguridad donde los jugadores progresan a través de diferentes niveles resolviendo desafíos de seguridad informática. Este script facilita la conexión a los niveles y la gestión de contraseñas obtenidas, permitiendo al usuario concentrarse en resolver los desafíos.
 
-# Agrega niveles nuevos
-function addLevel(){
-  level_to_add=$1
-  echo -en "\n${greenColour}[+]${endColour}${grayColour} Introduzca la password para bandit$level_to_add: ${endColour}" && read password
-  echo -e "bandit$level_to_add: $password" >> .bandit_pass
-  echo -e "\n${greenColour}[+]${endColour}${grayColour} Password almacenada exitosamente.${endColour}"
-}
+### Funcionalidades
 
-# Eliminar nivel
-function deleteLevel(){
-  level=$1
-  checker=$(cat .bandit_pass | grep "bandit$level")
-  if [ -f .bandit_pass ] && [ "$checker" ]; then
-    cat .bandit_pass | grep -v "bandit$level" | sort | sponge .bandit_pass
+- **Conexión a niveles de Bandit**: Conéctese fácilmente a cualquier nivel especificado usando la opción `-c`.
+- **Almacenamiento de contraseñas**: Almacena de manera segura las contraseñas obtenidas en un archivo local para un fácil acceso.
+- **Listado de niveles completados**: Muestra una lista de todos los niveles y sus contraseñas almacenadas usando la opción `-l`.
+- **Agregar nuevos niveles**: Permite agregar manualmente nuevas contraseñas para niveles específicos con la opción `-a`.
+- **Eliminar niveles**: Facilita la eliminación de contraseñas de niveles específicos usando la opción `-d`.
+- **Panel de ayuda**: Proporciona información sobre el uso del script con la opción `-h`.
+
+### Uso
+
+```bash
+./bandit_automation.sh [opciones]
+
+Opciones:
+  -h        Mostrar este panel de ayuda.
+  -c <num>  Conectarse al nivel especificado de Bandit (por ejemplo, -c 7).
+  -l        Listar todos los niveles y contraseñas almacenadas.
+  -a <num>  Agregar una nueva contraseña para el nivel especificado (por ejemplo, -a 5).
+  -d <num>  Eliminar la contraseña del nivel especificado (por ejemplo, -d 3).
+```
+
+### Ejemplos
+
+- **Conectar al nivel 7**:
+  ```bash
+  ./bandit_automation.sh -c 7
+  ```
+
 - **Listar todos los niveles y contraseñas**:
   ```bash
   ./bandit_automation.sh -l
