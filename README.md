@@ -1,4 +1,4 @@
-## Bandit Automation Script
+## Bandit Script
 
 ### Descripción
 
@@ -16,7 +16,7 @@ Este script de Bash automatiza la interacción con el juego Bandit de OverTheWir
 ### Uso
 
 ```bash
-./bandit_automation.sh [opciones]
+./bandit.sh [opciones]
 
 Opciones:
   -h        Mostrar este panel de ayuda.
@@ -30,22 +30,22 @@ Opciones:
 
 - **Conectar al nivel 7**:
   ```bash
-  ./bandit_automation.sh -c 7
+  ./bandit.sh -c 7
   ```
 
 - **Listar todos los niveles y contraseñas**:
   ```bash
-  ./bandit_automation.sh -l
+  ./bandit.sh -l
   ```
 
 - **Agregar una nueva contraseña para el nivel 5**:
   ```bash
-  ./bandit_automation.sh -a 5
+  ./bandit.sh -a 5
   ```
 
 - **Eliminar la contraseña del nivel 3**:
   ```bash
-  ./bandit_automation.sh -d 3
+  ./bandit.sh -d 3
   ```
 
 ### Requisitos
