@@ -75,7 +75,7 @@ function connectLevel(){
 # Lista niveles
 function listLevels(){
   if [ -f .bandit_pass ]; then
-    cat .bandit_pass | sort | while read line; do echo -e "${greenColour}$(echo $line | awk '{print $1}')${endColour}${purpleColour} $(echo $line | awk '{print $2}')${endColour}" ; done
+    cat .bandit_pass | while read line; do echo -e "${greenColour}$(echo $line | awk '{print $1}')${endColour}${purpleColour} $(echo $line | awk '{print $2}')${endColour}" ; done
   else
     echo -e "\n${redColour}[!] No hay claves de niveles para mostrar${endColour}"
   fi
@@ -94,7 +94,7 @@ function deleteLevel(){
   level=$1
   checker=$(cat .bandit_pass 2>/dev/null | grep "bandit$level")
   if [ -f .bandit_pass ] && [ "$checker" ]; then
-    cat .bandit_pass | grep -v "bandit$level" | sort | sponge .bandit_pass
+    cat .bandit_pass | grep -v "bandit$level" | sponge .bandit_pass
     echo -e "\n${redColour}[-]${endColour}${grayColour} Se ha eliminado el nivel de bandit$level exitosamente.${endColour}\n"
   else
     echo -e "\n${redColour}[!] No existe el nivel proporcionado en los datos almacenados.${endColour}\n"
